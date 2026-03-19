@@ -94,47 +94,6 @@ export default function HeroSection() {
           </p>
         </motion.div>
 
-        {/* ── LAYER 0b · Hero text (fades in as split completes) ───────────── */}
-        <motion.div
-          style={{ opacity: textOpacity, y: textY, position: "absolute", inset: 0, zIndex: 0 }}
-          className="flex flex-col justify-center items-center text-center px-6 md:px-12 pt-40"
-        >
-          <div className="max-w-[1600px] mx-auto w-full flex flex-col items-center">
-            <span className="text-[#6b7280] text-xs tracking-[0.3em] uppercase mb-6 block">
-              Africa · Indian Subcontinent · Dubai
-            </span>
-            <h1
-              className="text-[clamp(3rem,9vw,8rem)] font-light leading-[0.95] tracking-tight text-[#09090b] mb-8"
-              style={{ fontFamily: "var(--font-cormorant), serif" }}
-            >
-              Distributing
-              <br />
-              <em className="italic text-[#6b7280]">Luxury</em>
-              <br />
-              Across Continents
-            </h1>
-            <p className="text-[#6b7280] text-base md:text-lg max-w-lg leading-relaxed mb-12">
-              Space TR is a premier distributor of luxury perfumes and cosmetics across Africa
-              and the Indian Subcontinent — bringing the world&apos;s finest fragrance brands
-              to discerning consumers in emerging markets.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/brands"
-                className="inline-flex items-center gap-2 bg-[#09090b] text-white px-8 py-4 text-sm tracking-wider uppercase font-medium hover:bg-[#27272a] transition-colors duration-200"
-              >
-                Our Brands <ArrowUpRight size={16} />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 border border-[#d4d4d8] text-[#6b7280] px-8 py-4 text-sm tracking-wider uppercase hover:border-[#09090b] hover:text-[#09090b] transition-colors duration-200"
-              >
-                Partner With Us
-              </Link>
-            </div>
-          </div>
-        </motion.div>
-
         {/* ── LAYER 1 · LEFT half ───────────────────────────────────────────
               Full-screen motion.div translates LEFT on scroll.
               The img inside fills 100% of the div; clipPath hides the right
@@ -214,22 +173,6 @@ export default function HeroSection() {
               </div>
             ))}
           </motion.div>
-        </motion.div>
-
-        {/* ── LAYER 2 · Scroll hint ─────────────────────────────────────────── */}
-        <motion.div
-          style={{
-            opacity: hintOpacity,
-            position: "absolute",
-            bottom: 32,
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: 20,
-          }}
-          className="flex flex-col items-center gap-2 pointer-events-none"
-        >
-          <span className="text-black/30 text-xs tracking-widest uppercase">Scroll</span>
-          <ChevronDown size={16} className="text-black/30 animate-bounce" />
         </motion.div>
       </div>
     </div>
