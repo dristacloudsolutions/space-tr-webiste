@@ -43,8 +43,8 @@ export default function Header() {
         <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="text-[#fafafa] text-xl font-semibold tracking-widest uppercase hover:text-[#fffefa] transition-colors duration-200"
-            style={{ fontFamily: "var(--font-cormorant), serif" }}
+            className="text-[#fafafa] text-xl font-bold tracking-[0.2em] uppercase hover:text-[#fffefa] transition-colors duration-200"
+            style={{ fontFamily: "var(--font-display), serif" }}
           >
             Space TR
           </Link>

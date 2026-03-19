@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import HeroSection from "@/components/HeroSection";
 import DomeGallery from "@/components/DomeGallery";
+import BrandsGrid from "@/components/BrandsGrid";
 import { brandLogos } from "@/lib/brands";
 
 function FadeIn({
@@ -72,7 +73,7 @@ function WhoWeAreSection() {
   };
 
   return (
-    <section ref={sectionRef} id="who-we-are" className="px-6 md:px-12 py-32 border-t border-white/5 bg-[#09090b]">
+    <section ref={sectionRef} id="who-we-are" className="px-6 md:px-12 py-48 border-t border-white/5 bg-[#09090b]">
       <div className="max-w-[1600px] mx-auto">
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center mb-32">
@@ -90,8 +91,8 @@ function WhoWeAreSection() {
               <div className="overflow-hidden">
                 <motion.h2
                   custom={1} variants={textVariants} initial="hidden" animate={inView ? "visible" : "hidden"}
-                  className="text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white leading-[1.1]"
-                  style={{ fontFamily: "var(--font-cormorant), serif" }}
+                  className="text-[clamp(3rem,6vw,5.5rem)] font-semibold text-white leading-[1.1] tracking-tight"
+                  style={{ fontFamily: "var(--font-playfair), serif" }}
                 >
                   A premier distributor across <br />
                   <span className="italic text-[#a1a1aa] ml-2">Africa & South Asia</span>
@@ -184,8 +185,8 @@ function WhoWeAreSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.7 + i * 0.1, ease }}
-                  className="text-white text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-none"
-                  style={{ fontFamily: "var(--font-cormorant), serif" }}
+                  className="text-white text-[clamp(3.5rem,6vw,5.5rem)] font-semibold leading-none tracking-tighter"
+                  style={{ fontFamily: "var(--font-playfair), serif" }}
                 >
                   {value}
                 </motion.p>
@@ -218,34 +219,22 @@ export default function HomePage() {
         covering the still-sticky revealed hero screen.
       ── */}
       <div style={{ position: "relative", zIndex: 10, backgroundColor: "#09090b", marginTop: "-100vh" }}>
+        
+        {/* ── BRANDS GRID ── */}
+        <BrandsGrid />
 
-      {/* ── MARQUEE ── */}
-      {/* <div className="border-y border-[#27272a] overflow-hidden py-4">
-        <motion.div
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="flex whitespace-nowrap gap-12"
-        >
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <span key={i} className="text-[#3f3f46] text-sm tracking-widest uppercase">
-              {item} &nbsp;·
-            </span>
-          ))}
-        </motion.div>
-      </div> */}
-
-      {/* ── WHO WE ARE ── */}
-      <WhoWeAreSection />
+        {/* ── WHO WE ARE ── */}
+        <WhoWeAreSection />
 
       {/* ── WHAT WE OFFER ── */}
-      <section id="what-we-offer" style={{ backgroundColor: "#f0ebe3" }} className="px-6 md:px-12 py-28">
+      <section id="what-we-offer" style={{ backgroundColor: "#f0ebe3" }} className="px-6 md:px-12 py-48">
         <div className="max-w-[1600px] mx-auto">
 
           {/* Header */}
-          <FadeIn className="text-center mb-12">
+          <FadeIn className="text-center mb-24">
             <h2
-              className="text-[clamp(2.5rem,8vw,7rem)] font-light leading-none tracking-[0.15em] uppercase text-[#1a1a1a]"
-              style={{ fontFamily: "var(--font-cormorant), serif" }}
+              className="text-[clamp(3rem,8vw,8rem)] font-semibold leading-none tracking-tighter uppercase text-[#1a1a1a]"
+              style={{ fontFamily: "var(--font-playfair), serif" }}
             >
               What We Offer
             </h2>
@@ -406,10 +395,10 @@ export default function HomePage() {
           <FadeIn>
             <span className="text-[#a1a1aa] text-xs tracking-[0.4em] uppercase block mb-4">Our Portfolio</span>
             <h2 
-              className="text-[clamp(2.5rem,5vw,5rem)] font-light leading-tight text-white"
-              style={{ fontFamily: "var(--font-cormorant), serif" }}
+              className="text-[clamp(3rem,6vw,6rem)] font-semibold leading-tight text-white tracking-tight"
+              style={{ fontFamily: "var(--font-playfair), serif" }}
             >
-              Partnering with <em className="italic text-[#a1a1aa]">world-class</em> beauty brands.
+              Partnering with <em className="italic font-light text-[#a1a1aa]">world-class</em> beauty brands.
             </h2>
           </FadeIn>
         </div>
@@ -432,10 +421,10 @@ export default function HomePage() {
           <FadeIn className="mb-20">
             <span className="text-[#71717a] text-[10px] tracking-[0.5em] uppercase font-semibold">Global Logistics</span>
             <h2 
-              className="text-[clamp(2.5rem,5vw,5.5rem)] font-light leading-none text-white mt-6"
-              style={{ fontFamily: "var(--font-cormorant), serif" }}
+              className="text-[clamp(3rem,6vw,6.5rem)] font-semibold leading-none text-white mt-8 tracking-tighter"
+              style={{ fontFamily: "var(--font-playfair), serif" }}
             >
-              Strategically <em className="italic text-[#a1a1aa]">Connected</em>.
+              Strategically <em className="italic font-light text-[#a1a1aa]">Connected</em>.
             </h2>
           </FadeIn>
 

@@ -24,29 +24,22 @@ export default function HeroSection() {
     });
   }, []);
 
+  const HERO_IMAGE = "https://static.wixstatic.com/media/8ab953_9d899c3576834de7bbbb1266d1cfc58e~mv2.jpg";
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
-  // Smooth progress for ultra-fluid motion
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
 
-  /*
-   * The container is 300vh.
-   *  0.00 – 0.05  GIF fully visible
-   *  0.05 – 0.33  GIF panels split outward
-   *  0.33 – 0.66  Revealed content remains sticky
-   *  0.66 – 1.00  Following content scrolls over
-   */
   const leftX  = useTransform(smoothProgress, [0.05, 0.33], ["0%", "-60%"]);
   const rightX = useTransform(smoothProgress, [0.05, 0.33], ["0%",  "60%"]);
   
-  // Parallax effect: the imagery moves slower than the panels
   const imgParallaxLeft  = useTransform(smoothProgress, [0.05, 0.33], ["0%", "15%"]);
   const imgParallaxRight = useTransform(smoothProgress, [0.05, 0.33], ["0%", "-15%"]);
 
@@ -58,22 +51,8 @@ export default function HeroSection() {
   const marqueeOpacity = useTransform(smoothProgress, [0.20, 0.33], [0, 1]);
   const marqueeY       = useTransform(smoothProgress, [0.20, 0.33], [20, 0]);
 
-  const fullScreen: React.CSSProperties = {
-    position: "absolute",
-    inset: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    objectPosition: "center center",
-    userSelect: "none",
-    pointerEvents: "none",
-    draggable: false,
-  } as React.CSSProperties;
-
-  const springConfig = { stiffness: 100, damping: 30 };
-
   return (
-    <div ref={containerRef} style={{ height: "300vh" }}>
+    <div ref={containerRef} style={{ height: "300vh" }} className="relative">
       <div
         style={{
           position: "sticky",
@@ -85,11 +64,11 @@ export default function HeroSection() {
         }}
       >
         {/* ── NOISE OVERLAY ── */}
-        <div className="absolute inset-0 z-[100] pointer-events-none opacity-[0.035] mix-blend-overlay"
+        <div className="absolute inset-0 z-[100] pointer-events-none opacity-[0.045] mix-blend-overlay"
           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Cfilter id='noiseFilter'%3%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3%3C/filter%3%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3%3C/svg%3")` }}
         />
 
-        {/* ── LAYER 0a · Revealed Content ──────────────────────────────────── */}
+        {/* ── LAYER 0a · Revealed Content (Site Identity) ────────────────────── */}
         <motion.div
           style={{ 
             opacity: logoImgOpacity, 
@@ -105,24 +84,23 @@ export default function HeroSection() {
             <img
               src="/Space-Logo-19.png"
               alt="Space TR"
-              style={{ width: 440, height: "auto" }}
+              style={{ width: 480, height: "auto" }}
               className="relative z-10"
             />
-            {/* Subtle glow behind logo */}
-            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#e5e7eb] to-transparent" />
+            <div className="absolute inset-x-0 bottom--4 h-px bg-gradient-to-r from-transparent via-[#111] to-transparent opacity-20" />
           </motion.div>
 
           <div className="overflow-hidden">
             <p
-              className="text-[#6b7280] text-2xl md:text-3xl tracking-tight max-w-2xl leading-relaxed italic"
-              style={{ fontFamily: "var(--font-cormorant), serif" }}
+              className="text-[#111] text-xl md:text-2xl tracking-tight max-w-2xl leading-relaxed font-light"
+              style={{ fontFamily: "var(--font-inter), sans-serif" }}
             >
-              {"Bringing the best of global beauty brands to local audiences.".split(" ").map((word, i) => (
+              {"A premier gateway for luxury beauty across emerging markets, connecting the world's most prestigious fragrance houses to elite audiences.".split(" ").map((word, i) => (
                 <motion.span
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={logoImgOpacity.get() > 0.5 ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.8, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={logoImgOpacity.get() > 0.4 ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
                   className="inline-block mr-2"
                 >
                   {word}
@@ -132,80 +110,104 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* ── LAYER 1 · LEFT half ─────────────────────────────────────────── */}
+        {/* ── LAYER 1 · THE LUXURY PANELS ───────────────────────────────────── */}
+        {/* LEFT PANEL */}
         <motion.div
           style={{ 
             x: leftX, 
             position: "absolute", 
             inset: 0, 
-            zIndex: 10,
-            filter: useTransform(smoothProgress, [0.05, 0.25], ["blur(0px)", "blur(10px)"])
+            zIndex: 30,
+            clipPath: "inset(0 50% 0 0)",
+            filter: useTransform(smoothProgress, [0.05, 0.33], ["brightness(1)", "brightness(0.9)"])
           }}
         >
-          <motion.img
-            ref={leftImgRef}
-            alt="Space TR"
-            style={{ 
-              ...fullScreen, 
-              clipPath: "inset(0 50% 0 0)",
-              x: imgParallaxLeft 
-            }}
-          />
+          <motion.div 
+            style={{ x: imgParallaxLeft, position: "absolute", inset: 0 }}
+            className="w-full h-full"
+          >
+            <img
+              src={HERO_IMAGE}
+              alt="Luxury Fragrance"
+              className="w-full h-full object-cover grayscale-[0.2]"
+            />
+            {/* Dark Vignette Overlay */}
+            <div className="absolute inset-0 bg-black/30" />
+          </motion.div>
         </motion.div>
 
-        {/* ── LAYER 1 · RIGHT half ────────────────────────────────────────── */}
+        {/* RIGHT PANEL */}
         <motion.div
           style={{ 
             x: rightX, 
             position: "absolute", 
             inset: 0, 
-            zIndex: 10,
-            filter: useTransform(smoothProgress, [0.05, 0.25], ["blur(0px)", "blur(10px)"])
+            zIndex: 30,
+            clipPath: "inset(0 0 0 50%)",
+            filter: useTransform(smoothProgress, [0.05, 0.33], ["brightness(1)", "brightness(0.9)"])
           }}
         >
-          <motion.img
-            ref={rightImgRef}
-            alt=""
-            aria-hidden
-            style={{ 
-              ...fullScreen, 
-              clipPath: "inset(0 0 0 50%)",
-              x: imgParallaxRight 
-            }}
-          />
+          <motion.div 
+            style={{ x: imgParallaxRight, position: "absolute", inset: 0 }}
+            className="w-full h-full"
+          >
+            <img
+              src={HERO_IMAGE}
+              alt=""
+              aria-hidden
+              className="w-full h-full object-cover grayscale-[0.2]"
+            />
+            {/* Dark Vignette Overlay */}
+            <div className="absolute inset-0 bg-black/30" />
+          </motion.div>
         </motion.div>
 
-        {/* ── LAYER 2 · Initial Logo Overlay ─────────────────────────────── */}
+        {/* ── CENTRAL HEADING OVERLAY (Moves with panels) ─────────────────── */}
         <motion.div
-          style={{ opacity: logoOpacity, position: "absolute", inset: 0, zIndex: 20 }}
-          className="flex flex-col items-center justify-center pointer-events-none"
+          style={{ 
+            position: "absolute", 
+            inset: 0, 
+            zIndex: 40,
+            opacity: logoOpacity,
+          }}
+          className="flex flex-col items-center justify-center pointer-events-none text-white"
         >
-          <div className="relative">
-            <motion.p
-              initial={{ letterSpacing: "1em", opacity: 0 }}
-              animate={{ letterSpacing: "0.25em", opacity: 1 }}
-              transition={{ duration: 2, ease: "easeOut" }}
-              className="text-white text-5xl md:text-8xl font-light uppercase"
-              style={{ fontFamily: "var(--font-cormorant), serif" }}
+          <div className="relative overflow-hidden px-4 text-center">
+            <motion.h1
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1], delay: 0.2 }}
+              className="text-6xl md:text-9xl font-semibold tracking-tighter leading-[0.9]"
+              style={{ fontFamily: "var(--font-playfair), serif" }}
             >
-              Space TR
-            </motion.p>
+              Global Brands.
+            </motion.h1>
+            <motion.h1
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1], delay: 0.4 }}
+              className="text-6xl md:text-9xl font-semibold tracking-tighter mt-2 leading-[0.9]"
+              style={{ fontFamily: "var(--font-playfair), serif" }}
+            >
+              Local Reach.
+            </motion.h1>
           </div>
-          <motion.p 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="text-white/40 text-[10px] tracking-[0.8em] uppercase mt-8 font-medium"
-          >
-            Luxury · Perfumes · Cosmetics
-          </motion.p>
           
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "1em" }}
+            animate={{ opacity: 1, letterSpacing: "0.25em" }}
+            transition={{ duration: 2, delay: 0.8 }}
+            className="text-white/60 text-xs md:text-sm uppercase mt-12 font-medium tracking-[0.4em]"
+          >
+            Pioneering Luxury Distribution
+          </motion.p>
+
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-12"
+            className="absolute bottom-16"
           >
-            <div className="w-px h-12 bg-gradient-to-b from-white/50 to-transparent" />
+            <div className="w-px h-16 bg-gradient-to-b from-white/60 to-transparent" />
           </motion.div>
         </motion.div>
 
@@ -221,25 +223,25 @@ export default function HeroSection() {
             zIndex: 1,
             overflow: "hidden",
           }}
-          className="py-10 border-y border-[#e5e7eb]/50 bg-white/50 backdrop-blur-sm"
+          className="py-12 border-y border-[#18181b]/10 bg-white/40 backdrop-blur-md"
         >
-          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent z-10" />
-          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent z-10" />
+          <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-white/80 to-transparent z-10" />
+          <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-white/80 to-transparent z-10" />
           
           <motion.div
             animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            className="flex gap-16 whitespace-nowrap px-8 items-center"
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            className="flex gap-24 whitespace-nowrap px-12 items-center"
           >
             {[...brandLogos, ...brandLogos].map((b, i) => (
               <div
                 key={i}
-                className="shrink-0 w-32 h-16 flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0"
+                className="shrink-0 w-36 h-20 flex items-center justify-center opacity-40 hover:opacity-100 transition-all duration-700 grayscale hover:grayscale-0"
               >
                 <img
                   src={b.img}
                   alt={b.name}
-                  className="max-w-full max-h-full object-contain"
+                  className="max-w-full max-h-full object-contain scale-100 hover:scale-110 transition-transform duration-500"
                 />
               </div>
             ))}
