@@ -200,14 +200,14 @@ export default function HomePage() {
 
       {/*
         ── SCROLLING CONTENT ──────────────────────────────────────────────────
-        position: relative + z-index: 10 ensures this content paints ON TOP of
-        the sticky hero as it slides up over it.
-        background: #09090b covers the hero text behind it as it overlaps.
-        The hero container is 200vh; the split completes at 100vh (50% progress),
-        so this content enters the viewport bottom at exactly that moment and
-        slides up over the still hero text for the remaining 100vh.
+        The hero container is 300vh.
+        Split completes at 100vh (0.33 progress).
+        The hero is sticky for 200vh (300vh parent - 100vh sticky child).
+        By setting marginTop: -100vh, this content starts at 200vh from page top.
+        From scroll 100vh to 200vh, this block slides UP from the viewport bottom,
+        covering the still-sticky revealed hero screen.
       ── */}
-      <div style={{ position: "relative", zIndex: 10, backgroundColor: "#09090b" }}>
+      <div style={{ position: "relative", zIndex: 10, backgroundColor: "#09090b", marginTop: "-100vh" }}>
 
       {/* ── MARQUEE ── */}
       {/* <div className="border-y border-[#27272a] overflow-hidden py-4">

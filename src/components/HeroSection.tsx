@@ -40,15 +40,15 @@ export default function HeroSection() {
    * Panels: each is full-screen; clipPath shows its half; the whole div
    * translates ±50% (= ±50 vw) so the clipped half exits the viewport.
    */
-  const leftX  = useTransform(scrollYProgress, [0.05, 0.50], ["0%", "-50%"]);
-  const rightX = useTransform(scrollYProgress, [0.05, 0.50], ["0%",  "50%"]);
+  const leftX  = useTransform(scrollYProgress, [0.05, 0.33], ["0%", "-50%"]);
+  const rightX = useTransform(scrollYProgress, [0.05, 0.33], ["0%",  "50%"]);
 
   // Logo fades as split begins; text fades in as split completes
-  const logoOpacity    = useTransform(scrollYProgress, [0,    0.08], [1, 0]);
-  const logoImgOpacity = useTransform(scrollYProgress, [0.05, 0.18], [0, 1]);
-  const logoImgY       = useTransform(scrollYProgress, [0.05, 0.18], [80, 0]);
-  const textOpacity    = useTransform(scrollYProgress, [0.30, 0.50], [0, 1]);
-  const textY          = useTransform(scrollYProgress, [0.30, 0.50], [30, 0]);
+  const logoOpacity    = useTransform(scrollYProgress, [0,    0.05], [1, 0]);
+  const logoImgOpacity = useTransform(scrollYProgress, [0.05, 0.20], [0, 1]);
+  const logoImgY       = useTransform(scrollYProgress, [0.05, 0.20], [80, 0]);
+  const textOpacity    = useTransform(scrollYProgress, [0.20, 0.33], [0, 1]);
+  const textY          = useTransform(scrollYProgress, [0.20, 0.33], [30, 0]);
   const hintOpacity    = useTransform(scrollYProgress, [0,    0.06], [1, 0]);
 
   const fullScreen: React.CSSProperties = {
@@ -64,7 +64,7 @@ export default function HeroSection() {
   } as React.CSSProperties;
 
   return (
-    <div ref={containerRef} style={{ height: "250vh" }}>
+    <div ref={containerRef} style={{ height: "300vh" }}>
       <div
         style={{
           position: "sticky",
